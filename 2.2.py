@@ -1,21 +1,41 @@
-def create_chessboard(n, m):
-    chessboard = []  # Создаем пустой массив
-    for i in range(n):
-        row = []  # Создаем пустую строку для каждой строки в массиве
-        for j in range(m):
-            # Заполняем ячейки массива символами "." и "*" в шахматном порядке
-            if (i + j) % 2 == 0:
-                row.append(".")
+def process_argument(argument):
+    if isinstance(argument, dict):
+        # Если аргумент - словарь, найдем ключ с максимальным значением
+        if argument:
+            max_key = max(argument, key=argument.get)
+            print(f"Ключ с максимальным значением: {max_key}")
+        else:
+            print("Пустой словарь")
+    elif isinstance(argument, list):
+        # Если аргумент - список, найдем количество элементов до первого отрицательного элемента
+        count = 0
+        for elem in argument:
+            if elem < 0:
+                break
+            count += 1
+        print(f"Количество элементов до первого отрицательного элемента: {count}")
+    elif isinstance(argument, int):
+        # Если аргумент - число, проверим, является ли оно простым
+        if argument > 1:
+            for i in range(2, argument):
+                if (argument % i) == 0:
+                    print(f"{argument} не является простым числом")
+                    break
             else:
-                row.append("*")
-        chessboard.append(row)  # Добавляем строку к массиву
-    return chessboard
+                print(f"{argument} является простым числом")
+        else:
+            print("Число должно быть больше 1")
+    elif isinstance(argument, str):
+        # Если аргумент - строка, выведем ее в обратном порядке и найдем сумму цифр
+        reversed_str = argument[::-1]
+        print(f"Строка в обратном порядке: {reversed_str}")
+        digits_sum = sum(int(digit) for digit in argument if digit.isdigit())
+        print(f"Сумма цифр в строке: {digits_sum}")
+    else:
+        print("Неизвестный тип аргумента")
 
-# Пример использования функции:
-n = 5  # Количество строк
-m = 5  # Количество столбцов
-board = create_chessboard(n, m)
-
-# Выводим созданную шахматную доску
-for row in board:
-    print(" ".join(row))
+# Примеры вызова функции:
+process_argument({'a': 10, 'b': 20, 'c': 5})  # Вывод ключа с максимальным значением
+process_argument([1, 2, 3, -1, 4, 5])       # Вывод количества элементов до первого отрицательного
+process_argument(17)                        # Проверка на простоту
+process_argument("Hello12345")

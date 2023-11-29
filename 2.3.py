@@ -1,17 +1,21 @@
-try:
-    # Попытка выполнения кода, который может вызвать исключение
-    num = int(input("Введите число: "))
-    result = 10 / num  # Если num будет 0, то это вызовет исключение ZeroDivisionError
+def create_chessboard(n, m):
+    chessboard = []  # Создаем пустой массив
+    for i in range(n):
+        row = []  # Создаем пустую строку для каждой строки в массиве
+        for j in range(m):
+            # Заполняем ячейки массива символами "." и "*" в шахматном порядке
+            if (i + j) % 2 == 0:
+                row.append(".")
+            else:
+                row.append("*")
+        chessboard.append(row)  # Добавляем строку к массиву
+    return chessboard
 
-except ZeroDivisionError:
-    print("Ошибка деления на ноль.")
-except ValueError:
-    print("Ошибка ввода. Введите целое число.")
-except Exception as e:
-    print(f"Произошла ошибка: {e}")
+# Пример использования функции:
+n = 5  # Количество строк
+m = 5  # Количество столбцов
+board = create_chessboard(n, m)
 
-finally:
-    # Блок finally выполняется всегда, независимо от наличия исключений
-    print("Блок finally всегда выполняется.")
-
-print("Программа завершена.")
+# Выводим созданную шахматную доску
+for row in board:
+    print(" ".join(row))
